@@ -29,6 +29,7 @@ class Game extends Component {
     this.back = this.back.bind(this);
     this.checkForVictory = this.checkForVictory.bind(this);
     this.hideResults = this.hideResults.bind(this);
+    this.countDown = this.countDown.bind(this);
   }
 
   onClick(e) {
@@ -40,21 +41,23 @@ class Game extends Component {
 
     if (e.target.tagName !== 'I') return;
 
+    this.stopTimer();
+
     playerMove = parseInt(e.target.getAttribute('name'), 10);
     computerMove = this.getComputerMove();
 
     switch (true) {
       case playerMove === computerMove:
-        resultText = 'ties';
+        resultText = ' ties ';
         break;
       case playerMove > computerMove &&
         !(playerMove === 2 && computerMove === 0) ||
         (playerMove === 0 && computerMove === 2):
-        resultText = 'beats';
+        resultText = ' beats ';
         playerScore++;
         break;
       default:
-        resultText = 'losses to';
+        resultText = ' losses to ';
         computerScore++;
     }
 
@@ -83,6 +86,10 @@ class Game extends Component {
   }
 
   hideResults() {
+    if (!this.state.winner) {
+      this.startTimer();
+    }
+
     this.setState({
       showResults: false,
     });
@@ -95,6 +102,46 @@ class Game extends Component {
   back() {
     this.setState(DEFAULT_STATE);
     this.props.onBack();
+  }
+
+  startTimer() {
+    this.setState({
+      time: this.props.time,
+    });
+
+    this.interval = setInterval(this.countDown, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.interval);
+    delete this.interval;
+  }
+
+  checkTimer() {
+    if (this.state.time === 0 && this.interval) {
+      this.stopTimer();
+
+      this.setState({
+        resultText: 'Gotta Go Faster!',
+        playerMove: null,
+        computerMove: null,
+        computerScore: this.state.computerScore + 1,
+      }, this.checkForVictory);
+    }
+  }
+
+  countDown() {
+    this.setState({
+      time: this.state.time - 1,
+    }, this.checkTimer);
+  }
+
+  renderTimer() {
+    return (
+      <div className="timer">
+        {this.state.time}
+      </div>
+    );
   }
 
   renderGame() {
@@ -139,6 +186,7 @@ class Game extends Component {
   render() {
     return (
       <div className="App-game">
+        {this.renderTimer()}
         <div className="play-area">
           {this.renderGame()}
           {this.renderResults()}
@@ -149,6 +197,7 @@ class Game extends Component {
         <input
           value="Back"
           type="button"
+          className="back"
           onClick={this.back}
         />
       </div>
@@ -159,6 +208,7 @@ class Game extends Component {
 Game.defaultProps = _.defaults({
   bestOf: 3,
   onBack: _.noop,
+  time: 5,
 }, Component.defaultProps);
 
 export default Game;

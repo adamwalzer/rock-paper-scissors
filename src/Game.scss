@@ -1,3 +1,5 @@
+$black: #000;
+$white: #fff;
 $blue: #009;
 
 .App.play {
@@ -11,6 +13,7 @@ $blue: #009;
 .App-game {
   opacity: 0;
   z-index: -1;
+  font-size: 32px;
 
   .play-area {
     position: relative;
@@ -36,6 +39,8 @@ $blue: #009;
   }
 
   .options {
+    margin-top: 10px;
+
     i {
       cursor: pointer;
 
@@ -43,5 +48,16 @@ $blue: #009;
         color: $blue;
       }
     }
+  }
+
+  .score {
+    padding: 20px;
+  }
+
+  .back {
+    border: 2px solid $black;
+    background-color: $white;
+    padding: 0 5px;
+    font-size: 32px;
   }
 }

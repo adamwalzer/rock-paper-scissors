@@ -18,6 +18,7 @@ class App extends Component {
   }
 
   onBestOfSelection(bestOf) {
+    this.refs.game.startTimer();
     this.setState({
       play: true,
       bestOf,
@@ -48,6 +49,7 @@ class App extends Component {
             onSubmit={this.onBestOfSelection}
           />
           <Game
+            ref="game"
             bestOf={this.state.bestOf}
             onBack={this.onGameBack}
           />
