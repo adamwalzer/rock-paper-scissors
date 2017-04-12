@@ -1,5 +1,6 @@
 $black: #000;
 $white: #fff;
+$grey: #666;
 $blue: #009;
 
 .App.play {
@@ -17,30 +18,20 @@ $blue: #009;
 
   .play-area {
     position: relative;
-    height: 75px;
+    margin-top: 10px;
     line-height: 75px;
     font-size: 64px;
 
     > div {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
+      display: none;
 
       &.show {
-        transition: opacity .5s;
-        opacity: 1;
-        z-index: 1;
+        display: block;
       }
     }
   }
 
   .options {
-    margin-top: 10px;
-
     i {
       cursor: pointer;
 
@@ -59,5 +50,11 @@ $blue: #009;
     background-color: $white;
     padding: 0 5px;
     font-size: 32px;
+  }
+
+  .hint {
+    margin: 10px auto;
+    color: $grey;
+    font-size: 20px;
   }
 }

@@ -30,34 +30,41 @@ class Game extends Component {
     this.checkForVictory = this.checkForVictory.bind(this);
     this.hideResults = this.hideResults.bind(this);
     this.countDown = this.countDown.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   onClick(e) {
     let playerMove = 0;
+
+    if (e.target.tagName !== 'I') return;
+
+    playerMove = parseInt(e.target.getAttribute('name'), 10);
+
+    this.onMove(playerMove);
+  }
+
+  onMove(playerMove) {
     let computerMove = 0;
     let resultText = '';
     let playerScore = this.state.playerScore;
     let computerScore = this.state.computerScore;
 
-    if (e.target.tagName !== 'I') return;
-
     this.stopTimer();
 
-    playerMove = parseInt(e.target.getAttribute('name'), 10);
     computerMove = this.getComputerMove();
 
     switch (true) {
       case playerMove === computerMove:
-        resultText = ' ties ';
+        resultText = ' = ';
         break;
       case playerMove > computerMove &&
         !(playerMove === 2 && computerMove === 0) ||
         (playerMove === 0 && computerMove === 2):
-        resultText = ' beats ';
+        resultText = ' > ';
         playerScore++;
         break;
       default:
-        resultText = ' losses to ';
+        resultText = ' < ';
         computerScore++;
     }
 
@@ -101,10 +108,13 @@ class Game extends Component {
 
   back() {
     this.setState(DEFAULT_STATE);
+    this.stopTimer();
     this.props.onBack();
   }
 
   startTimer() {
+    this.attachKeyBindings();
+
     this.setState({
       time: this.props.time,
     });
@@ -113,6 +123,8 @@ class Game extends Component {
   }
 
   stopTimer() {
+    this.dettachKeyBindings();
+
     clearInterval(this.interval);
     delete this.interval;
   }
@@ -134,6 +146,28 @@ class Game extends Component {
     this.setState({
       time: this.state.time - 1,
     }, this.checkTimer);
+  }
+
+  onKeyDown(e) {
+    switch (e.keyCode) {
+      case 49:
+        this.onMove(0);
+        break;
+      case 50:
+        this.onMove(1);
+        break;
+      case 51:
+        this.onMove(2);
+        break;
+    }
+  }
+
+  attachKeyBindings() {
+    window.addEventListener('keydown', this.onKeyDown);
+  }
+
+  dettachKeyBindings() {
+    window.removeEventListener('keydown', this.onKeyDown);
   }
 
   renderTimer() {
@@ -200,6 +234,9 @@ class Game extends Component {
           className="back"
           onClick={this.back}
         />
+        <div className="hint">
+          hint: you can also press numbers 1, 2, or 3 to choose rock, paper, or scissors respectively.
+        </div>
       </div>
     );
   }
