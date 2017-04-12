@@ -11,6 +11,7 @@ class BestOfSelector extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    e.stopPropagation();
     this.props.onSubmit(this.refs.bestOf.value);
   }
 
@@ -42,7 +43,7 @@ class BestOfSelector extends Component {
 
 BestOfSelector.defaultProps = _.defaults({
   bestOf: 3,
-  onChange: _.noop,
+  onSubmit: _.noop,
 }, Component.defaultProps);
 
 export default BestOfSelector;

@@ -2,7 +2,9 @@
     "globals": {
         "React": true,
         "ReactDOM": true,
-        "it": true
+        "it": true,
+        "test": true,
+        "expect": true
     },
     "parser": "babel-eslint",
     "plugins": [
