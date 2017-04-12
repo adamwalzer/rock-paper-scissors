@@ -1,0 +1,43 @@
+$black: #000;
+$white: #fff;
+
+.App.play {
+  .App-best-of {
+    pointer-events: none;
+
+    input {
+      display: none;
+    }
+
+    span {
+      display: inline;
+    }
+  }
+}
+
+.App-best-of {
+  transition: opacity .5s;
+  opacity: 1;
+  z-index: 1;
+  padding: 20px;
+  font-size: 32px;
+
+  input {
+    border: 2px solid $black;
+    background-color: $white;
+    padding: 0 5px;
+    font-size: 32px;
+
+    &[type=number] {
+      width: 60px;
+    }
+
+    &[type=submit] {
+      margin-left: 20px;
+    }
+  }
+
+  span {
+    display: none;
+  }
+}
