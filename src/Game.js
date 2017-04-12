@@ -235,6 +235,7 @@ class Game extends Component {
           onClick={this.back}
         />
         <div className="hint">
+          hint: click on the equation to play another hand<br/>
           hint: you can also press numbers 1, 2, or 3 to choose rock, paper, or scissors respectively.
         </div>
       </div>

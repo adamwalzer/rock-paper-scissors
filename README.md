@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+## Overview
+
+This is a simple implementation of rock paper scissors using react. It has a clean and simple UI. It allows you to play a simple game against a computer without added complexity. Don't worry the computer doesn't know what you're throwing when it throws it's move. You can pick how many rounds you want to play. After each round, you'll see who won. Your throw will be on the left, the computer's throw will be on the right, and an evaluator will be in the middle. You have to move fast, because if you take too long, the round will be forfeited to the computer. But don't worry the timer is there for you to see. Who ever wins each round gets a point. Whenever one player has enough points that they're guaranteed a victory, the game is over. The score is displayed before your choices of rock, paper, or scissors. You can either click the icons or click 1, 2, or 3 on your keyboard to choose rock, paper, or scissors respectively. This game works on phone, tablet, and desktop so play anywhere you'd like.
+
 ## Available Scripts
 
 In the project directory, you can run:
